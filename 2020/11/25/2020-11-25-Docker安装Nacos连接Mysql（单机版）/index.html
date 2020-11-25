@@ -236,12 +236,12 @@
 <h3 id="1-拉取镜像"><a href="#1-拉取镜像" class="headerlink" title="1. 拉取镜像"></a>1. 拉取镜像</h3><pre><code class="hljs shell">docker pull nacos/nacos-server</code></pre>
 
 <h3 id="2-安装MySQL"><a href="#2-安装MySQL" class="headerlink" title="2. 安装MySQL"></a>2. 安装MySQL</h3><p>笔者使用了docker的方式已安装了mysql5.7，安装方法请参考。</p>
-<h2 id="3-初始化数据库"><a href="#3-初始化数据库" class="headerlink" title="3. 初始化数据库"></a>3. 初始化数据库</h2><p>创建存储nacos配置的数据库</p>
+<h3 id="3-初始化数据库"><a href="#3-初始化数据库" class="headerlink" title="3. 初始化数据库"></a>3. 初始化数据库</h3><p>创建存储nacos配置的数据库</p>
 <pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">database</span> nacos</code></pre>
 
 <p>导入数据库初始化文件</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/alibaba/nacos/blob/master/config/src/main/resources/META-INF/nacos-db.sql">nacos-db.sql</a></p>
-<h2 id="4-创建nacos容器"><a href="#4-创建nacos容器" class="headerlink" title="4. 创建nacos容器"></a>4. 创建nacos容器</h2><pre><code class="hljs shell">docker run -d \
+<h3 id="4-创建nacos容器"><a href="#4-创建nacos容器" class="headerlink" title="4. 创建nacos容器"></a>4. 创建nacos容器</h3><pre><code class="hljs shell">docker run -d \
 -e PREFER_HOST_MODE=hostname \
 -e MODE=standalone \
 -e SPRING_DATASOURCE_PLATFORM=mysql \
@@ -272,7 +272,7 @@ tail -200f /home/nacos/logs/nacos.log</code></pre>
 <p>这里需要修改``SPRING_DATASOURCE_PLATFORM=mysql`为空，就可以正常启动了。这可能是nacos一个BUG。</p>
 <pre><code class="hljs shell">SPRING_DATASOURCE_PLATFORM=</code></pre>
 
-<h2 id="5-测试nacos"><a href="#5-测试nacos" class="headerlink" title="5. 测试nacos"></a>5. 测试nacos</h2><p>浏览器访问<code>ip:8848/nacos</code></p>
+<h3 id="5-测试nacos"><a href="#5-测试nacos" class="headerlink" title="5. 测试nacos"></a>5. 测试nacos</h3><p>浏览器访问<code>ip:8848/nacos</code></p>
 <p>登录后添加配置等都成功，但在数据库里并没有实际增加数据。多次尝试都失败，这个方法不知道是否可以解决。</p>
 <h2 id="docker-compose方式解决问题"><a href="#docker-compose方式解决问题" class="headerlink" title="docker compose方式解决问题"></a>docker compose方式解决问题</h2><p>在上述方法，尝试了修改配置文件和启动加载配置都失败后，我们尝试使用其他方式启动容器。</p>
 <blockquote>
@@ -280,7 +280,7 @@ tail -200f /home/nacos/logs/nacos.log</code></pre>
 <p>CentOS 7.4</p>
 <p>MySQL 5.7</p>
 </blockquote>
-<h3 id="docker-compose安装"><a href="#docker-compose安装" class="headerlink" title="docker compose安装"></a>docker compose安装</h3><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> curl -L https://github.com/docker/compose/releases/download/1.8.0/run.sh &gt; /usr/<span class="hljs-built_in">local</span>/bin/docker-compose</span>
+<h2 id="docker-compose安装"><a href="#docker-compose安装" class="headerlink" title="docker compose安装"></a>docker compose安装</h2><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> curl -L https://github.com/docker/compose/releases/download/1.8.0/run.sh &gt; /usr/<span class="hljs-built_in">local</span>/bin/docker-compose</span>
 <span class="hljs-meta">$</span><span class="bash"> chmod +x /usr/<span class="hljs-built_in">local</span>/bin/docker-compose</span>
 <span class="hljs-meta">$</span><span class="bash"> docker-compose --version</span></code></pre>
 
